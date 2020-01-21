@@ -1,0 +1,117 @@
+<html>
+    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      <style>
+        html, body {
+          height: 100%;
+        }
+        .button:hover {
+          background-color: yellow;
+        }
+        #token {
+          position: fixed;
+          bottom: -1000;
+          right: -1000;
+          width: 200px;
+          background-color: white;
+        }
+        .wrap {
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .button {
+          width: 140px;
+          height: 45px;
+          font-family: 'Roboto', sans-serif;
+          font-size: 11px;
+          text-transform: uppercase;
+          letter-spacing: 2.5px;
+          font-weight: 500;
+          color: #000;
+          background-color: #fff;
+          border-radius: 45px;
+          box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+          transition: all 0.3s ease 0s;
+          cursor: pointer;
+          outline: none;
+          }
+
+        .button:hover {
+          background-color: #2EE59D;
+          box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+          color: #fff;
+          transform: translateY(-7px);
+        }
+      </style>
+    </head>
+
+    <body>
+      <div id="in">
+      <input id="token" type="text">
+    </div>
+<!-- The button used to copy the text -->
+<div class="wrap">
+  <button class="button" id="btn" onclick="clickCopy()">승인</button>
+</div>
+<script>
+    if(window.location.href.includes('code')){
+      // GET 요청으로 code를 받아온다.
+
+      function getUrlParams() {
+          var params = {};
+          window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) { params[key] = value; });
+          return params;
+      }
+
+      console.log(window.location.href)
+
+      var param = getUrlParams()
+      console.log(param.code)
+
+      var token = document.getElementById("token");
+      
+      token.value = param.code
+
+      // code를 활용하여 액세스 토큰을 받아온다.
+      console.log('post')
+      let res = await axios.post('https://api.instagram.com/oauth/access_token', { headers: { 'content-type': 'application/x-www-form-urlencoded', 'Access-Control-Allow-Origin': '*'}, app_id : '2461918490735728', app_secret: '05711ff94fdcca7b23a7cc4371c95c21', grant_type: 'authorization_code', redirect_uri:'https://tattooup.github.io/', code:this.code}, { useCredentails: true })
+      console.log(res)
+    
+
+      // 액세스 토큰을 활용하여 고객의 미디어 아이디를 받아온다
+      // 각 미디어 아이디로부터 정보를 받아와서 firestore에 기록하고, storage에 다운로드한다.
+
+      // let refs = await this.$storage.child('userProfiles').child(this.currentUser.uid).child('photoLibrary')
+      // console.log(refs)
+      // console.log(refs.child.length)
+      // let url = await refs.getDownloadURL()
+      // let name = refs.name
+
+
+    }else{
+      // GET 요청으로 code를 받아온다.
+      window.location.href = 'https://api.instagram.com/oauth/authorize?client_id=2461918490735728&redirect_uri=https://tattooup.github.io/&scope=user_profile,user_media&response_type=code'
+    };
+
+    function clickCopy() {
+      var token = document.getElementById("token");
+      token.select();
+      token.setSelectionRange(0, 9999);  // 추가
+
+      var i = document.execCommand('copy');
+      console.log(i)
+      token.blur();
+      alert('승인완료!')
+      window.location.href = 'https://tattooup.github.io/explain.html'
+      
+    };
+</script>
+
+
+
+</body>
+</html>
