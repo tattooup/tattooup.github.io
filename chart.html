@@ -10,6 +10,7 @@
     <body>
         <canvas id="myChart1"></canvas>
         <canvas id="myChart2"></canvas>
+        <canvas id="myChart3"></canvas>
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
         <script>
             var ctx = document.getElementById('myChart1').getContext('2d');
@@ -66,7 +67,77 @@
                             20438,
                             24363
                             ]
+                    }
+                    ]
+                },
+
+                // Configuration options go here
+                options: {
+                    title: {
+                        display: true,
+                        text: '중국 본토 내 감염자'
                     },
+                    hover: {
+                        animationDuration: 0
+                    },
+                    animation: {
+                        duration: 1,
+                        onComplete: function () {
+                            var chartInstance = this.chart,
+                                ctx = chartInstance.ctx;
+                            ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'bottom';
+
+                            this.data.datasets.forEach(function (dataset, i) {
+                                var meta = chartInstance.controller.getDatasetMeta(i);
+                                meta.data.forEach(function (bar, index) {
+                                    if(parseInt(index % 2) === 0){
+
+                                    var data = dataset.data[index];
+                                    ctx.fillStyle = "#003333";
+                                    if(i === 0){
+                                        ctx.fillText(data, bar._model.x, bar._model.y - 10);
+                                    }
+                                    }                          
+                                    
+                                });
+                            });
+                        }
+                    }
+                }
+            });
+
+            var ctx2 = document.getElementById('myChart2').getContext('2d');
+            var chart = new Chart(ctx2, {
+                // The type of chart we want to create
+                type: 'line',
+
+                // The data for our dataset
+                data: {
+                    labels: [
+                    '01월 16일',
+                    '01월 17일',
+                    '01월 18일',
+                    '01월 19일',
+                    '01월 20일',
+                    '01월 21일',
+                    '01월 22일',
+                    '01월 23일',
+                    '01월 24일',
+                    '01월 25일',
+                    '01월 26일',
+                    '01월 27일',
+                    '01월 28일',
+                    '01월 29일',
+                    '01월 30일',
+                    '01월 31일',
+                    '02월 01일',
+                    '02월 02일',
+                    '02월 03일',
+                    '02월 04일',
+                    ],
+                    datasets: [
                     {
                         label: '사망자',
                         borderColor: 'rgb(255, 244, 79)',
@@ -126,7 +197,7 @@
                 options: {
                     title: {
                         display: true,
-                        text: '중국 본토 내 감염자, 사망자, 회복자'
+                        text: '중국 본토 내 사망자, 회복자'
                     },
                     hover: {
                         animationDuration: 0
@@ -159,8 +230,8 @@
                 }
             });
 
-var ctx2 = document.getElementById('myChart2').getContext('2d');
-            var chart = new Chart(ctx2, {
+var ctx3 = document.getElementById('myChart3').getContext('2d');
+            var chart = new Chart(ctx3, {
                 // The type of chart we want to create
                 type: 'line',
 
