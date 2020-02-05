@@ -75,11 +75,6 @@
       var token = document.getElementById("token");
       
       token.value = param.code
-
-      // code를 활용하여 액세스 토큰을 받아온다.
-      console.log('post')
-      //let res = await axios.post('https://api.instagram.com/oauth/access_token', { headers: { 'content-type': 'application/x-www-form-urlencoded', 'Access-Control-Allow-Origin': '*'}, app_id : '2461918490735728', app_secret: '05711ff94fdcca7b23a7cc4371c95c21', grant_type: 'authorization_code', redirect_uri:'https://tattooup.github.io/', code:this.code}, { useCredentails: true })
-      //console.log(res)
     
 
       // 액세스 토큰을 활용하여 고객의 미디어 아이디를 받아온다
