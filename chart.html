@@ -128,10 +128,6 @@
                         display: true,
                         text: '중국 본토 내 감염자, 사망자, 회복자'
                     },
-                    events: false,
-                    tooltips: {
-                        enabled: false
-                    },
                     hover: {
                         animationDuration: 0
                     },
@@ -148,8 +144,11 @@
                                 var meta = chartInstance.controller.getDatasetMeta(i);
                                 meta.data.forEach(function (bar, index) {
                                     var data = dataset.data[index];
-                                    ctx.fillStyle = "#003333";                            
-                                    ctx.fillText(data, bar._model.x, bar._model.y - i*10);
+                                    ctx.fillStyle = "#003333";
+                                    if(i === 0){
+                                        ctx.fillText(data, bar._model.x, bar._model.y - 10);
+                                    }                          
+                                    
                                 });
                             });
                         }
@@ -214,10 +213,6 @@ var ctx2 = document.getElementById('myChart2').getContext('2d');
                     title: {
                         display: true,
                         text: '국내 확진자 및 격리자'
-                    },
-                    events: false,
-                    tooltips: {
-                        enabled: false
                     },
                     hover: {
                         animationDuration: 0
