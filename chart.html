@@ -143,10 +143,13 @@
                             this.data.datasets.forEach(function (dataset, i) {
                                 var meta = chartInstance.controller.getDatasetMeta(i);
                                 meta.data.forEach(function (bar, index) {
+                                    if(parseInt(index % 2) === 0){
+
                                     var data = dataset.data[index];
                                     ctx.fillStyle = "#003333";
                                     if(i === 0){
                                         ctx.fillText(data, bar._model.x, bar._model.y - 10);
+                                    }
                                     }                          
                                     
                                 });
