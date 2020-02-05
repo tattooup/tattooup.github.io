@@ -1,112 +1,90 @@
-<html>
-    <head>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <link rel='shortcut icon' href='https://s3.amazonaws.com/sendbird-static/favicon/favicon.ico' type='image/x-icon'>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+  <title>Live Chat Sample</title>
 
-      <style>
-        html, body {
-          height: 100%;
-        }
-        .button:hover {
-          background-color: yellow;
-        }
-        #token {
-          position: fixed;
-          bottom: -1000;
-          right: -1000;
-          width: 200px;
-          background-color: white;
-        }
-        .wrap {
-          height: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
+  <style>
+    body {
+      margin: 0;
+      background: #20242a;
+      font-family: 'Lato';
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+    }
 
-        .button {
-          width: 140px;
-          height: 45px;
-          font-family: 'Roboto', sans-serif;
-          font-size: 11px;
-          text-transform: uppercase;
-          letter-spacing: 2.5px;
-          font-weight: 500;
-          color: #000;
-          background-color: #fff;
-          border-radius: 45px;
-          box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-          transition: all 0.3s ease 0s;
-          cursor: pointer;
-          outline: none;
-          }
+    .top {
+      width: 1100px;
+      height: 43px;
+      padding: 20px 0;
+      margin: 0 auto;
+      position: relative;
+    }
+    .top > a {
+      display: block;
+      float: left;
+    }
+    .top > span {
+      float: left;
+      color: #868d99;
+      font-size: 13px;
+      position: absolute;
+      bottom: 28px;
+      left: 180px;
+      font-family: 'Open Sans';
+    }
+    .sendbird-logo {
+      border: none;
+      height: 40px;
+    }
 
-        .button:hover {
-          background-color: #2EE59D;
-          box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
-          color: #fff;
-          transform: translateY(-7px);
-        }
-      </style>
-    </head>
+    .content {
+      width: 1100px;
+      height: 808px;
+      margin: 0 auto;
+    }
 
-    <body>
-      <div id="in">
-      <input id="token" type="text">
-    </div>
-<!-- The button used to copy the text -->
-<div class="wrap">
-  <button class="button" id="btn" onclick="clickCopy()">승인</button>
+    .content-image {
+      display: inline-block;
+      width: 680px;
+      height: 808px;
+    }
+
+    .content-chat {
+      width: 400px;
+      height: 100%;
+      float: right;
+    }
+
+  </style>
+
+</head>
+<body>
+
+<div class="top">
+  <a href="https://sendbird.com" target="_blank">
+    <!--<img class="sendbird-logo" src="https://dxstmhyqfqr1o.cloudfront.net/logo/logo_SendBird_positive.svg" alt="SendBird">-->
+    <img class="sendbird-logo" src="https://dxstmhyqfqr1o.cloudfront.net/liveChat/logo_livechat.svg" alt="SendBird">
+  </a>
+  <span>version 0.6.0</span>
 </div>
-<script>
-    if(window.location.href.includes('code')){
-      // GET 요청으로 code를 받아온다.
-
-      function getUrlParams() {
-          var params = {};
-          window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) { params[key] = value; });
-          return params;
-      }
-
-      console.log(window.location.href)
-
-      var param = getUrlParams()
-      console.log(param.code)
-
-      var token = document.getElementById("token");
-      
-      token.value = param.code
-    
-
-      // 액세스 토큰을 활용하여 고객의 미디어 아이디를 받아온다
-      // 각 미디어 아이디로부터 정보를 받아와서 firestore에 기록하고, storage에 다운로드한다.
-
-      // let refs = await this.$storage.child('userProfiles').child(this.currentUser.uid).child('photoLibrary')
-      // console.log(refs)
-      // console.log(refs.child.length)
-      // let url = await refs.getDownloadURL()
-      // let name = refs.name
-
-
-    }else{
-      // GET 요청으로 code를 받아온다.
-      window.location.href = 'https://api.instagram.com/oauth/authorize?client_id=2461918490735728&redirect_uri=https://tattooup.github.io/&scope=user_profile,user_media&response_type=code'
-    };
-
-    function clickCopy() {
-      var token = document.getElementById("token");
-      token.select();
-      token.setSelectionRange(0, 9999);  // 추가
-
-      var i = document.execCommand('copy');
-      console.log(i)
-      token.blur();
-      alert('승인완료!')
-      window.location.href = 'https://tattooup.github.io/explain.html'
-      
-    };
-</script>
-
-
+<div class="content">
+  <div class="content-image">
+    <img src="https://dxstmhyqfqr1o.cloudfront.net/liveChat/bg_livechat_x2.png" width="680" height="810">
+  </div>
+  <div class="content-chat" id="sb_chat"></div>
+</div>
 
 </body>
+
+<script src="SendBird.min.js"></script>
+<script src="dist/liveChat.SendBird.js"></script>
+<script>
+  var appId = '9DA1B1F4-0BE6-4DA8-82C5-2E81DAB56F23';
+  var channelUrl = 'sendbird_open_channel_1_5b0336cc55abf6d3464e1d2a263a8e343d3b2b42'; // channel: text_chat_test
+  liveChat.start(appId, channelUrl);
+</script>
+
 </html>
