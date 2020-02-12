@@ -11,14 +11,31 @@
           background-color: #B9090B;
         }
         #token {
-          position: fixed;
-          bottom: -1000;
-          right: -1000;
-          width: 200px;
+          position: relative;
+          width: 300px;
+          height: 40px;
           background-color: white;
         }
+        .wrapTop {
+          height: 40%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .wrapBottom {
+          height: 40%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .wrap2 {
+          height: 10%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
         .wrap {
-          height: 100%;
+          height: 10%;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -64,14 +81,18 @@
     </head>
 
     <body>
-      <div id="in">
-      <input id="token" type="text">
+    <!-- The button used to copy the text -->
+    <div class="wrapTop"></div>
+    <div class="wrap2">
+      <input disabled id="token" type="text" class="w3-input w3-border w3-round">
     </div>
-<!-- The button used to copy the text -->
-<div class="wrap">
-  <div class="loader" id="spinner"></div>
-  <button class="button" id="btn" onclick="clickCopy()">코드 복사</button>
-</div>
+    
+    <div class="wrap">
+      <div class="loader" id="spinner"></div>
+      
+      <button class="button" id="btn" onclick="clickCopy()">코드 복사</button>
+    </div>
+    <div class="wrapBottom"></div>
 <script>
     if(window.location.href.includes('code')){
       // GET 요청으로 code를 받아온다.
@@ -106,7 +127,8 @@
     }else{
       // GET 요청으로 code를 받아온다.
       document.getElementById("btn").style.display = "none";
-      window.location.href = 'https://api.instagram.com/oauth/authorize?client_id=2461918490735728&redirect_uri=https://tattooup.github.io/&scope=user_profile,user_media&response_type=code'
+      document.getElementById("token").style.display = "none";
+      // window.location.href = 'https://api.instagram.com/oauth/authorize?client_id=2461918490735728&redirect_uri=https://tattooup.github.io/&scope=user_profile,user_media&response_type=code'
     };
 
     function clickCopy() {
