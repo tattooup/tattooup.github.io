@@ -1,13 +1,14 @@
 <html>
     <head>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+      <meta charset="utf-8">
       <style>
         html, body {
           height: 100%;
+          background-color: black;
         }
         .button:hover {
-          background-color: yellow;
+          background-color: #B9090B;
         }
         #token {
           position: fixed;
@@ -31,8 +32,8 @@
           text-transform: uppercase;
           letter-spacing: 2.5px;
           font-weight: 500;
-          color: #000;
-          background-color: #fff;
+          color: #FFF;
+          background-color: grey;
           border-radius: 45px;
           box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
           transition: all 0.3s ease 0s;
@@ -41,10 +42,23 @@
           }
 
         .button:hover {
-          background-color: #2EE59D;
-          box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+          background-color: #B9090B;
+          box-shadow: 0px 15px 20px #C9090B;
           color: #fff;
           transform: translateY(-7px);
+        }
+        .loader {
+          border: 4px solid #f3f3f3; /* Light grey */
+          border-top: 4px solid grey; /* Blue */
+          border-radius: 50%;
+          width: 30px;
+          height: 30px;
+          animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
         }
       </style>
     </head>
@@ -55,11 +69,13 @@
     </div>
 <!-- The button used to copy the text -->
 <div class="wrap">
-  <button class="button" id="btn" onclick="clickCopy()">승인</button>
+  <div class="loader" id="spinner"></div>
+  <button class="button" id="btn" onclick="clickCopy()">코드 복사</button>
 </div>
 <script>
     if(window.location.href.includes('code')){
       // GET 요청으로 code를 받아온다.
+      document.getElementById("spinner").style.display = "none";
 
       function getUrlParams() {
           var params = {};
@@ -89,6 +105,7 @@
 
     }else{
       // GET 요청으로 code를 받아온다.
+      document.getElementById("btn").style.display = "none";
       window.location.href = 'https://api.instagram.com/oauth/authorize?client_id=2461918490735728&redirect_uri=https://tattooup.github.io/&scope=user_profile,user_media&response_type=code'
     };
 
@@ -100,9 +117,7 @@
       var i = document.execCommand('copy');
       console.log(i)
       token.blur();
-      alert('승인완료!')
-      window.location.href = 'https://tattooup.github.io/explain.html'
-      
+      alert('코드 복사 완료! 앱으로 돌아가셔서 코드를 입력해 주세요')
     };
 </script>
 
