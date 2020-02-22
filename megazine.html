@@ -13,6 +13,11 @@
             .desktop{
                 display: block;
             }
+            .container {
+                position: relative;
+                text-align: center;
+                color: white;
+            }
 
 
             @media screen and (max-width: 768px) {
@@ -50,6 +55,24 @@
                     height: 800px;
                     text-align: left;
                 }
+                .centered1 {
+                    position: absolute;
+                    width:300px;
+                    top: 30%;
+                    left: 70%;
+                    transform: translate(-50%, -50%);
+                    font-weight: 600;
+                    font-size:50px;
+                    }
+                .centered2 {
+                    position: absolute;
+                    top: 60%;
+                    width:300px;
+                    left: 70%;
+                    transform: translate(-50%, -50%);
+                    font-weight: 600;
+                    font-size:40px;
+                    }
 
             }
             
@@ -84,11 +107,11 @@
                 </div>
 
                 <br>
-                <div>
+                <div class="container">
                     <img style="padding:0px; width: 100%;" src="https://firebasestorage.googleapis.com/v0/b/tattooup.appspot.com/o/img%2Fmegazine.jpeg?alt=media&token=14b6f905-4e3a-4849-9438-833c208278ab">
-                    <span style="font-weight: 600;">타투의 장르</span>
+                    <span class="centered1">타투의 장르</span>
                     <br>
-                    <span style="font-weight: 600;">#1 블랙워크</span>
+                    <span class="centered2">#1 블랙워크</span>
                     <br>
                     </img>
                 </div>
